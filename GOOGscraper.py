@@ -23,9 +23,8 @@ def getEPS():
             if (td.find(text=re.compile("Diluted EPS"))):
                 output = td.text
                 ratio = td.parent.find_all('td')[1].text
-    print(output)
-    print(ratio)
-getEPS()
+    return(output + ": " + ratio)
+print(getEPS())
 print()
 def getNetIncome():
     NIrow = table.contents[2]
@@ -37,16 +36,16 @@ def getNetIncome():
     NetGrowth = NetGrowth.replace('%', '')
     NetGrowth = float(NetGrowth)
     if (NetGrowth >= 20):
-        print('Net Income Growth is good!')
+        return('Net Income Growth is good!')
     elif(NetGrowth >= 10):
-        print('Net Income Growth is healthy, but could be better.')
+        return('Net Income Growth is healthy, but could be better.')
     elif(NetGrowth >= 5):
-        print('Net Income Growth is low.')
+        return('Net Income Growth is low.')
     elif(NetGrowth >= 0):
-        print('Net Income Growth is not good.')
+        return('Net Income Growth is not good.')
     else:
-        print('Net Income Growth is negative. Not good at all!')
-getNetIncome()
+        return('Net Income Growth is negative. Not good at all!')
+print(getNetIncome())
 print()
 def getPERatio():
     stockInfo = soup.find('div', {'class': "eYanAe", 'role': 'region', 'aria-labelledby': 'key-stats-heading'})
@@ -57,12 +56,30 @@ def getPERatio():
     PERatio = PErow.contents[1].text
     print(PETitle + ": " + PERatio)
     if (int(float(PERatio)) >= 20):
-        print('P/E ratio is good!')
+        return('P/E ratio is good!')
     else:
-        print('P/E ratio is not good!')
-getPERatio()
+        return('P/E ratio is not good!')
+print(getPERatio())
 print()
 
+def getDivYield():
+    stockInfo = soup.find('div', {'class': "eYanAe", 'role': 'region', 'aria-labelledby': 'key-stats-heading'})
+    stockInfo.find_all('div')
+    infoRows = stockInfo.find_all('div', class_='gyFHrc')
+    DivRow = infoRows[6]
+    DivTitle = DivRow.contents[0].contents[0].text
+    DivYield = DivRow.contents[1].text
+    return(DivTitle + ": " + DivYield)
+print(getDivYield())
+print()
+
+f = open("demofile.txt", "x")
+f = open("demofile.txt", "a") # append
+f.write(getEPS())
+f.write(getNetIncome())
+f.write(getPERatio())
+f.write(getDivYield())
+f.close()
 #isPEGood
 #20-25 is average
 #if above and poor earnings -> not good!, overpriced
