@@ -34,15 +34,15 @@ class GoogleScraper:
         NetGrowth = NetGrowth.replace('%', '')
         NetGrowth = float(NetGrowth)
         if (NetGrowth >= 20):
-            return('Net Income Growth is good!')
+            return('Net Income Growth ' + '(' + str(NetGrowth) + '%' + ')' + " is good!")
         elif(NetGrowth >= 10):
-            return('Net Income Growth is healthy, but could be better.')
+            return('Net Income Growth ' + '(' + str(NetGrowth) + '%' + ')' + " is healthy, but could be better.")
         elif(NetGrowth >= 5):
-            return('Net Income Growth is low.')
+            return('Net Income Growth ' + '(' + str(NetGrowth) + '%' + ')' + ' is low.')
         elif(NetGrowth >= 0):
-            return('Net Income Growth is not good.')
+            return('Net Income Growth '  + '(' + str(NetGrowth) + '%' + ')' + ' is not good.')
         else:
-            return('Net Income Growth is negative. Not good at all!')
+            return('Net Income Growth ' + '(' + str(NetGrowth) + '%' + ')' + ' is negative. Not good at all!')
 
     def getPERatio(self):
         stockInfo = self.soup.find('div', {'class': "eYanAe", 'role': 'region', 'aria-labelledby': 'key-stats-heading'})
@@ -66,3 +66,23 @@ class GoogleScraper:
         DivTitle = DivRow.contents[0].contents[0].text
         DivYield = DivRow.contents[1].text
         return(DivTitle + ": " + DivYield)
+
+    def getRevenue(self):
+        revRow = self.table.contents[1]
+        revTitle = revRow.find('div').text
+        revenue = revRow.contents[1].text
+        revenueGrowth = revRow.contents[2].find('span').text
+        print(revTitle + ": " + revenue)
+        print(revenueGrowth)
+        revenueGrowth = revenueGrowth.replace('%', '')
+        revenueGrowth = float(revenueGrowth)
+        if (revenueGrowth >= 20):
+            return('Revenue Growth ' + '(' + str(revenueGrowth) + '%' + ')' + " is good!")
+        elif(revenueGrowth >= 10):
+            return('Revenue Growth' + '(' + str(revenueGrowth) + ')' + '%' + ' is healthy, but could be better.')
+        elif(revenueGrowth >= 5):
+            return('Revenue Growth is' + '(' + str(revenueGrowth) + '%' + ')' + ' low.')
+        elif(revenueGrowth >= 0):
+            return('Revenue Growth' + '(' + str(revenueGrowth) + '%' + ')' + ' is not good.')
+        else:
+            return('Revenue Growth' + '(' + str(revenueGrowth) + '%' + ')' + 'is negative. Not good at all!')

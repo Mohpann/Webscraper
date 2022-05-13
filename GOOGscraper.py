@@ -28,10 +28,16 @@ print()
 f = open("demofile.txt", "x")
 f = open("demofile.txt", "a") # append
 f.write(scraper.getEPS())
+f.write("\n")
+f.write(scraper.getRevenue())
+f.write("\n")
 f.write(scraper.getNetIncome())
+f.write("\n")
 f.write(scraper.getPERatio())
+f.write("\n")
 f.write(scraper.getDivYield())
 f.close()
+
 #isPEGood
 #20-25 is average
 #if above and poor earnings -> not good!, overpriced
