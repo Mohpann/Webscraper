@@ -13,20 +13,21 @@ import GoogleScraper #OR from MODULE GoogleScraper import CLASS GoogleScraper
 print() #for separation of outputs in terminal 
 ticker = "ORCL"
 scraper = GoogleScraper.GoogleScraper(ticker)
+print(scraper.getPrice())
+print()
 print(scraper.getEPS())
 print()
-
 print(scraper.getNetIncome())
 print()
-
 print(scraper.getPERatio())
 print()
-
 print(scraper.getDivYield())
 print()
 
 f = open("demofile.txt", "x")
 f = open("demofile.txt", "a") # append
+f.write(scraper.getPrice())
+f.write('\n')
 f.write(scraper.getEPS())
 f.write("\n")
 f.write(scraper.getRevenue())

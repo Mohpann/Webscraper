@@ -86,3 +86,7 @@ class GoogleScraper:
             return('Revenue Growth' + '(' + str(revenueGrowth) + '%' + ')' + ' is not good.')
         else:
             return('Revenue Growth' + '(' + str(revenueGrowth) + '%' + ')' + 'is negative. Not good at all!')
+
+    def getPrice(self):
+        stockPrice = self.soup.find('div', class_="YMlKec fxKbKc")
+        return stockPrice.text
